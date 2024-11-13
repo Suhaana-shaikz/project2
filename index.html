@@ -1,0 +1,1597 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@latest/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="stylesheet" href="output.css">
+</head>
+
+
+
+
+<style>
+
+
+
+    .scroller{
+        scrollbar-width: none;
+    }
+    *{
+        margin: 0%;
+        padding: 0%;
+    }
+    .main{
+        position: fixed;
+    }
+    
+    @keyframes like-heart {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1.5);
+            }
+        }
+
+        .animate-like-heart {
+            animation: like-heart 1s ease-in-out forwards;
+        }
+        .like-heart {
+         display: none;
+         
+}
+input::placeholder{
+    padding-left: 20px;
+}
+
+
+</style>
+<body>
+
+
+
+
+
+  
+    <div class="box hidden bg-black bg-opacity-70 fixed inset-0 z-10" id="modalBox">
+        <div class="flex justify-center items-center h-full">
+            <div class="modal relative bg-white w-[900px] h-[600px] flex">
+                <video id="modalvideo" class="w-[400px] h-full object-cover" autoplay loop muted src=""></video>
+                <div class="flex flex-col ">
+                    <div class="suhaana  h-[80px] bg-red-500">
+                       
+                    </div>
+
+                    <div class="messages h-[430px]">
+                    
+                    </div>
+                    <div class="flex flex-col w-[500px] gap-2 border-t-2 border-gray-100">
+                        <div class="flex justify-between items-center">
+                            <div class="flex justify-start text-2xl mt-4 font-normal gap-3 ml-3">
+                        
+                                <div><i id="modal-heart" class="ri-heart-3-line hover:text-gray-500"></i></div>
+                                <div><i id="telegram" class="ri-telegram-2-line hover:text-gray-500"></i></div>
+                                <div><i id="chat" class="ri-chat-3-line hover:text-gray-500"></i></div>
+                            </div>
+                            <div><i id="modal-save" class="ri-bookmark-line hover:text-gray-500 cursor-pointer text-2xl relative right-3"></i></div>
+                        </div>
+                        
+                        <p id="modal-like-count" class="text-sm ml-3">0 likes</p>
+                        <div class="flex flex-row border-t-2 border-gray-100 h-12 items-center">
+                            <div><i class="fa-sharp fa-regular fa-face-smile text-xl ml-3"></i></div>
+                            <div>
+                                <input type="text" class="comment-input text-sm" placeholder="Add a comment...">
+                            </div>
+                            <button id="postComment" class="ml-2 p-2 bg-blue-500 text-white">Post</button>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+        <button id="closeModal" class="absolute top-2 right-2 text-2xl text-white">&times;</button>
+    </div>
+    
+
+
+<div id="savedVideosModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-white rounded-lg p-6 w-[600px] h-[600px] overflow-auto">
+        <h2 class="text-xl font-bold mb-4">Saved Videos</h2>
+        <div id="savedVideosContent">
+         
+        </div>
+        <button class="mt-4 bg-red-500 text-white p-2 rounded" id="closeModalBtn">Close</button>
+    </div>
+</div> 
+
+
+
+
+
+
+      
+      
+
+
+  
+
+    <div class="grid grid-cols-[240px_1252px] divide-x-2 divide-gray-200 black gap-6 ">
+           <div>  
+        <div class="main ml-6">
+                <div class="h-28 flex items-center">
+                    <div><img class="h-9" src="https://tse2.mm.bing.net/th?id=OIP.DexBeSiGPUP4igHscKierwHaCi&pid=Api&P=0&h=180" alt=""></div>
+                </div>
+                    <div>
+                            
+                        
+                        <div class="h-14  ">
+                            <div class="flex gap-3 ">
+                                <div class="text-3xl"><i class="ri-home-5-fill"></i></div>
+                                <div class=" text-96 flex items-center font-bold">  Home</div>
+                             </div>
+                         </div>
+                
+                        <div class="h-14">
+                            <div class="flex gap-3 ">
+                                <div class="text-3xl"><i class="ri-search-line"></i></div>
+                                <div class=" text-96 flex items-center">Search</div>
+                             </div>
+                         </div>
+
+                         <div class="h-14 ">
+                            <div class="flex gap-3 ">
+                                <div class="text-3xl"><i class="ri-compass-3-line"></i></div>
+                                <div class=" text-96 flex items-center">Explore</div>
+                             </div>
+                         </div>
+                         <div class="h-14">
+                            <div class="flex gap-3 ">
+                                 <div class="text-3xl"><i class="ri-clapperboard-line"></i></div>
+                                <div class=" text-96 flex items-center">Reels</div>
+                             </div>
+                         </div>
+                         <div class="h-14 ">
+                            <div class="flex gap-3 ">
+                                <div class="text-3xl"><i class="ri-messenger-line"></i></div>
+                                <div class=" text-96 flex items-center">Messages</div>
+                             </div>
+                         </div>
+                         <div class="h-14">
+                            <div class="flex gap-3 ">
+                                <div class="text-3xl"><i class="ri-heart-3-line"></i></div>
+                                <div class=" text-96 flex items-center">Notification</div>
+                             </div>
+                         </div>
+                         <div class="h-14 ">
+                            <div class="flex gap-3 ">
+                                <div class="text-3xl"><i class="ri-add-box-line"></i></div>
+                                <div class=" text-96 flex items-center">Create</div>
+                             </div>
+                         </div>
+                         <div class="h-14 ">
+                            <div class="flex gap-3 ">
+                                <div ><img class="size-7" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDMV7G1cA-1rWzQ6CHNX3_VMcvpECTE7I8Jg&s"></div>
+                                <div class=" text-96 flex items-center">Profile</div>
+                             </div>
+                         </div>
+
+
+                         <div class="h-16 ">
+                           
+                         </div>
+                         <div class="h-14">
+                            <div class="flex gap-3 ">
+                                <div class="text-3xl"><i class="ri-menu-line"></i></div>
+                                <div class=" text-96 flex items-center">More</div>
+                             </div>
+                         </div>
+
+                         
+                        
+                    </div>
+                
+        </div>      
+           </div>
+           <div > 
+
+        <div class="ml-28 mt-7 grid grid-cols-[600px_500px] ">
+
+                <div>
+                     <div>
+
+                        
+                        <div class="absolute top-10 flex justify-between w-[620px]">
+                            <button class="left-side left-0 bg-black bg-opacity-30 text-white rounded-full p-2"><</button>
+                            <button class="right-side right-0 bg-black bg-opacity-30 text-white rounded-full p-2">></button>
+                        </div>
+
+
+
+                     </div>
+
+
+                 
+                   
+                     <div class="status flex space-x-4 overflow-x-auto scrollbar-hide w-[620px] overflow-hidden scroller">
+
+
+                        <div class="story-container"></div>
+                     
+                                <!-- <div class="flex flex-col">
+
+                                      <img class="rounded-full border-2 p-1 m-1 bg-gradient-to-r from-pink-500 to-yellow-500 w-16 h-16 " src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                      <p class="font-light " >suh_safoid</p>
+                                </div>
+
+                                <div class="flex flex-col">
+                                       <img class="rounded-full border-2 p-1 m-1 bg-gradient-to-r from-pink-500 to-yellow-500  w-16 h-16" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                       <p class="font-light " >suh_safoid</p>
+                                </div>
+
+                                <div class="flex flex-col">
+                                       <img class="rounded-full border-2 p-1 m-1 bg-gradient-to-r from-pink-500 to-yellow-500  w-16 h-16" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+
+                                       <p class="font-light " >suh_safoid</p>
+                                </div>
+                                <div class="flex flex-col">
+                                       <img class="rounded-full border-2 p-1 m-1 bg-gradient-to-r from-pink-500 to-yellow-500  w-16 h-16" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+
+                                    
+                                       <p class="font-light " >suh_safoid</p>   
+                                </div>
+                               
+                                <div class="flex flex-col">
+                                       <img class="rounded-full border-2 p-1 m-1 bg-gradient-to-r from-pink-500 to-yellow-500  w-16 h-16" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                       <p class="font-light " >suh_safoid</p>   
+                                </div>
+
+                                <div class="flex flex-col">
+                                       <img class="rounded-full border-2 p-1 m-1 bg-gradient-to-r from-pink-500 to-yellow-500  w-16 h-16" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                       <p class="font-light " >suh_safoid</p>   
+                                </div>
+                                <div class="flex flex-col">
+
+                                       <img class="rounded-full border-2 p-1 m-1 bg-gradient-to-r from-pink-500 to-yellow-500  w-16 h-16" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                       <p class="font-light " >suh_safoid</p> 
+                                </div>
+                                <div class="flex flex-col">
+                                       <img class="rounded-full border-2 p-1 m-1 bg-gradient-to-r from-pink-500 to-yellow-500  w-16 h-16" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                       <p class="font-light " >suh_safoid</p> 
+                                </div>
+                                <div class="flex flex-col">
+
+
+                                       <img class="rounded-full border-2 p-1 m-1 bg-gradient-to-r from-pink-500 to-yellow-500  w-16 h-16" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                       <p class="font-light " >suh_safoid</p> 
+                                </div>
+                                <div class="flex flex-col">
+                                       <img class="rounded-full border-2 p-1 m-1 bg-gradient-to-r from-pink-500 to-yellow-500  w-16 h-16" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                       <p class="font-light " >muk_f1fo_d</p>
+                                </div>
+
+
+                                <div class="flex flex-col">
+
+                                       <img class="rounded-full border-2 p-1 m-1 bg-gradient-to-r from-pink-500 to-yellow-500  w-16 h-16" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                       <p class="font-light " >nui7kri_ki</p>
+                                </div>
+
+                                <div class="flex flex-col">
+
+                                       <img class="rounded-full border-2 p-1 m-1 bg-gradient-to-r from-pink-500 to-yellow-500  w-16 h-16" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                       <p class="font-light " >nuiu_krio_k</p>
+                                </div>
+
+                                <div class="flex flex-col">
+
+
+
+                                       <img class="rounded-full border-2 p-1 m-1 bg-gradient-to-r from-pink-500 to-yellow-500  w-16 h-16" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                       <p class="font-light " >nuikykri_k</p>
+                                </div>
+
+                                <div class="flex flex-col">
+
+                                       <img class="rounded-full border-2 p-1 m-1 bg-gradient-to-r from-pink-500 to-yellow-500  w-16 h-16" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                       <p class="font-light " >nutyi3ri_k</p>
+                                </div>
+
+                                <div class="flex flex-col">
+
+                                       <img class="rounded-full border-2 p-1 m-1 bg-gradient-to-r from-pink-500 to-yellow-500  w-16 h-16" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                       <p class="font-light " >nuikri_kst</p>
+                                </div>
+
+
+                                <div class="flex flex-col">
+
+
+                                       <img class="rounded-full border-2 p-1 m-1 bg-gradient-to-r from-pink-500 to-yellow-500  w-16 h-16" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                       <p class="font-light " >nuikyri_ks</p>
+                                </div>
+
+
+                                <div class="flex flex-col">
+
+                                       <img class="rounded-full border-2 p-1 m-1 bg-gradient-to-r from-pink-500 to-yellow-500  w-16 h-16" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                       <p class="font-light " >nuhri_kgui</p>
+                                </div>
+
+                                <div class="flex flex-col">
+
+                                       <img class="rounded-full border-2 p-1 m-1 bg-gradient-to-r from-pink-500 to-yellow-500  w-16 h-16" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                       <p class="font-light " >nuirkri_ky</p>
+                                </div> -->
+
+
+
+
+                     </div>
+
+
+
+
+
+                     <div class="relative top-4 ml-12 ">
+
+
+                        <div class="flex justify-between">
+                            <p class="font-semibold">Suggestions for You</p>
+
+                            <p class="text-blue-600 font-bold">See all</p>
+
+                        </div>
+
+                        <div class="relative top-3">
+
+                                       
+                                       
+
+                                                      
+
+                                      
+                                <div class="  flex overflow-x-auto scroller gap-2 p-4" id="card-container">
+                                           
+                                            <!-- <div class="card w-48 border-2 flex flex-col items-center shrink-0">
+                                                <button class="close-btn relative left-20 cursor-pointer">x</button>
+                                                <img class="rounded-full w-16 h-16 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                                <div class="flex gap-1">
+                                                    <p class="font-semibold">suh_safoid</p>
+                                                    <div class="text-blue-500"><i class="ri-checkbox-circle-fill"></i></div>
+                                                </div>
+                                                <p class="font-light text-center pb-10 px-6">Instagram recommended</p>
+                                                <div class="w-full border-t border-gray-300 my-2"></div>
+                                                <button class="w-full my-4 text-blue-600 hover:text-black">Follow</button>
+                                            </div>
+                    
+                                            
+                                            <div class="card w-48 border-2 flex flex-col items-center shrink-0">
+                                                <button class="close-btn relative left-20 cursor-pointer">x</button>
+                                                <img class="rounded-full w-16 h-16 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                                <div class="flex gap-1">
+                                                    <p class="font-semibold">suh_safoid</p>
+                                                    <div class="text-blue-500"><i class="ri-checkbox-circle-fill"></i></div>
+                                                </div>
+                                                <p class="font-light text-center pb-10 px-6">Instagram recommended</p>
+                                                <div class="w-full border-t border-gray-300 my-2"></div>
+                                                <button class="w-full my-4 text-blue-600 hover:text-black">Follow</button>
+                                            </div>
+
+                                            <div class="card w-48 border-2 flex flex-col items-center shrink-0">
+                                                <button class="close-btn relative left-20 cursor-pointer">x</button>
+                                                <img class="rounded-full w-16 h-16 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                                <div class="flex gap-1">
+                                                    <p class="font-semibold">suh_safoid</p>
+                                                    <div class="text-blue-500"><i class="ri-checkbox-circle-fill"></i></div>
+                                                </div>
+                                                <p class="font-light text-center pb-10 px-6">Instagram recommended</p>
+                                                <div class="w-full border-t border-gray-300 my-2"></div>
+                                                <button class="w-full my-4 text-blue-600 hover:text-black">Follow</button>
+                                            </div>
+
+                                            <div class="card w-48 border-2 flex flex-col items-center shrink-0">
+                                                <button class="close-btn relative left-20 cursor-pointer">x</button>
+                                                <img class="rounded-full w-16 h-16 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                                <div class="flex gap-1">
+                                                    <p class="font-semibold">suh_safoid</p>
+                                                    <div class="text-blue-500"><i class="ri-checkbox-circle-fill"></i></div>
+                                                </div>
+                                                <p class="font-light text-center pb-10 px-6">Instagram recommended</p>
+                                                <div class="w-full border-t border-gray-300 my-2"></div>
+                                                <button class="w-full my-4 text-blue-600 hover:text-black">Follow</button>
+                                            </div>
+
+                                            <div class="card w-48 border-2 flex flex-col items-center shrink-0">
+                                                <button class="close-btn relative left-20 cursor-pointer">x</button>
+                                                <img class="rounded-full w-16 h-16 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                                <div class="flex gap-1">
+                                                    <p class="font-semibold">suh_safoid</p>
+                                                    <div class="text-blue-500"><i class="ri-checkbox-circle-fill"></i></div>
+                                                </div>
+                                                <p class="font-light text-center pb-10 px-6">Instagram recommended</p>
+                                                <div class="w-full border-t border-gray-300 my-2"></div>
+                                                <button class="w-full my-4 text-blue-600 hover:text-black">Follow</button>
+                                            </div>
+
+                                            <div class="card w-48 border-2 flex flex-col items-center shrink-0">
+                                                <button class="close-btn relative left-20 cursor-pointer">x</button>
+                                                <img class="rounded-full w-16 h-16 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                                <div class="flex gap-1">
+                                                    <p class="font-semibold">suh_safoid</p>
+                                                    <div class="text-blue-500"><i class="ri-checkbox-circle-fill"></i></div>
+                                                </div>
+                                                <p class="font-light text-center pb-10 px-6">Instagram recommended</p>
+                                                <div class="w-full border-t border-gray-300 my-2"></div>
+                                                <button class="w-full my-4 text-blue-600 hover:text-black">Follow</button>
+                                            </div>
+
+
+                                            <div class="card w-48 border-2 flex flex-col items-center shrink-0">
+                                                <button class="close-btn relative left-20 cursor-pointer">x</button>
+                                                <img class="rounded-full w-16 h-16 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                                <div class="flex gap-1">
+                                                    <p class="font-semibold">suh_safoid</p>
+                                                    <div class="text-blue-500"><i class="ri-checkbox-circle-fill"></i></div>
+                                                </div>
+                                                <p class="font-light text-center pb-10 px-6">Instagram recommended</p>
+                                                <div class="w-full border-t border-gray-300 my-2"></div>
+                                                <button class="w-full my-4 text-blue-600 hover:text-black">Follow</button>
+                                            </div>
+
+                                            <div class="card w-48 border-2 flex flex-col items-center shrink-0">
+                                                <button class="close-btn relative left-20 cursor-pointer">x</button>
+                                                <img class="rounded-full w-16 h-16 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                                <div class="flex gap-1">
+                                                    <p class="font-semibold">suh_safoid</p>
+                                                    <div class="text-blue-500"><i class="ri-checkbox-circle-fill"></i></div>
+                                                </div>
+                                                <p class="font-light text-center pb-10 px-6">Instagram recommended</p>
+                                                <div class="w-full border-t border-gray-300 my-2"></div>
+                                                <button class="w-full my-4 text-blue-600 hover:text-black">Follow</button>
+                                            </div>
+                    
+                                            
+                                        </div>
+                     -->
+                                        
+                                        <div class="absolute top-32 flex justify-between w-full">
+                                            <button class="left-btn left-0 bg-black bg-opacity-30 text-white rounded-full p-2"><</button>
+                                            <button class="right-btn right-0 bg-black bg-opacity-30 text-white rounded-full p-2">></button>
+                                        </div>
+                                
+                    
+                                  
+                                
+                            
+                               </div>
+
+                                <div class="video-container"></div>
+                        <!-- <div class=" relative top-5 border-t-2  ">
+
+
+
+                            <div class="flex justify-between">
+
+                                <div class="flex gap-4 items-center pt-2 w-full ">
+
+                                       <img class="rounded-full border-4 border-pink-600 w-10 h-10 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                       <div class="flex flex-col">
+                                           <p class="font-semibold text-sm">mr.highthink</p>
+                                           <p class="font-normal text-xs">Orginal audio</p>
+                                       </div>                                                 
+                                </div>
+                                <div class="text-black flex items-center "><i class="ri-more-2-fill"></i></div>
+                            </div>
+                            <div class="relative top-3 h-[550px] w-[500px]">
+                                <video class="photo bg-black px-12 w-[500px] h-[550px]" autoplay  loop  muted type="video/mp4" src="https://videos.pexels.com/video-files/5532765/5532765-sd_506_960_25fps.mp4"></video>
+                    
+                            </div>
+                            <div class="flex justify-start text-2xl mt-4 font-normal gap-3" >
+                                <div><i id="heart" class="ri-heart-3-line"></i></div>
+                                <div><i id="telegram" class="ri-telegram-2-line"></i></div>
+                                <div><i id="chat" class="ri-chat-3-line"></i></div>
+                             </div>
+
+                            <div>
+                                  <div>
+                                      <p class="para">likes</p>
+                                      <p class="font-light text-sm text-gray-500">view all 7 comments</p>
+                                   
+                            
+                                  </div>
+                                    <div class="flex justify-between">
+                                        <div> <p class="font-light text-gray-500">Add a comment....</p></div>
+                                        <div class="text-sm text-gray-500 "><i class="ri-user-smile-line"></i></div>
+                                    </div>
+                            </div>
+                            <div  class="like-heart  absolute  top-80 left-56 flex items-center justify-center opacity-0 text-red-500 text-9xl pointer-events-none transform scale-0">
+                                ❤️
+                            </div>
+                        </div> -->
+
+
+
+
+<!--                         
+                        <div class=" relative top-5 border-t-2  ">
+
+
+
+                            <div class="flex justify-between">
+
+                                <div class="flex gap-4 items-center pt-2 w-full ">
+
+                                       <img class="rounded-full border-4 border-pink-600 w-10 h-10 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                       <div class="flex flex-col">
+                                           <p class="font-semibold text-sm">mr.highthink</p>
+                                           <p class="font-normal text-xs">Orginal audio</p>
+                                       </div>                                                 
+                                </div>
+                                <div class="text-black flex items-center "><i class="ri-more-2-fill"></i></div>
+                            </div>
+                            <div class="relative top-3 h-[550px] w-[500px]">
+                                <video class="photo bg-black px-12 w-[500px] h-[550px]" autoplay  loop  muted type="video/mp4" src="https://videos.pexels.com/video-files/7220850/7220850-sd_506_960_25fps.mp4"></video>
+                    
+                            </div>
+                            <div class="flex justify-start text-2xl mt-4 font-normal gap-3" >
+                                <div><i id="heart" class="ri-heart-3-line"></i></div>
+                                <div><i id="telegram" class="ri-telegram-2-line"></i></div>
+                                <div><i id="chat" class="ri-chat-3-line"></i></div>
+                             </div>
+
+                            <div>
+                                  <div>
+                                      <p class="para">likes</p>
+                                      <p class="font-light text-sm text-gray-500">view all 7 comments</p>
+                                   
+                            
+                                  </div>
+                                    <div class="flex justify-between">
+                                        <div> <p class="font-light text-gray-500">Add a comment....</p></div>
+                                        <div class="text-sm text-gray-500 "><i class="ri-user-smile-line"></i></div>
+                                    </div>
+                            </div>
+                            <div  class="like-heart  absolute  top-80 left-56 flex items-center justify-center opacity-0 text-red-500 text-9xl pointer-events-none transform scale-0">
+                                ❤️
+                            </div>
+                        </div> -->
+
+
+
+<!--                         
+                        <div class=" relative top-5 border-t-2  ">
+
+
+
+                            <div class="flex justify-between">
+
+                                <div class="flex gap-4 items-center pt-2 w-full ">
+
+                                       <img class="rounded-full border-4 border-pink-600 w-10 h-10 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                       <div class="flex flex-col">
+                                           <p class="font-semibold text-sm">mr.highthink</p>
+                                           <p class="font-normal text-xs">Orginal audio</p>
+                                       </div>                                                 
+                                </div>
+                                <div class="text-black flex items-center "><i class="ri-more-2-fill"></i></div>
+                            </div>
+                            <div class="relative top-3 h-[550px] w-[500px]">
+                                <video class="photo bg-black px-12 w-[500px] h-[550px]" autoplay  loop  muted type="video/mp4" src="https://videos.pexels.com/video-files/5532765/5532765-sd_506_960_25fps.mp4"></video>
+                    
+                            </div>
+                            <div class="flex justify-start text-2xl mt-4 font-normal gap-3" >
+                                <div><i id="heart" class="ri-heart-3-line"></i></div>
+                                <div><i id="telegram" class="ri-telegram-2-line"></i></div>
+                                <div><i id="chat" class="ri-chat-3-line"></i></div>
+                             </div>
+
+                            <div>
+                                  <div>
+                                      <p class="para">likes</p>
+                                      <p class="font-light text-sm text-gray-500">view all 7 comments</p>
+                                   
+                            
+                                  </div>
+                                    <div class="flex justify-between">
+                                        <div> <p class="font-light text-gray-500">Add a comment....</p></div>
+                                        <div class="text-sm text-gray-500 "><i class="ri-user-smile-line"></i></div>
+                                    </div>
+                            </div>
+                            <div  class="like-heart  absolute  top-80 left-56 flex items-center justify-center opacity-0 text-red-500 text-9xl pointer-events-none transform scale-0">
+                                ❤️
+                            </div>
+                        </div> -->
+
+
+
+                        
+                        <!-- <div class=" relative top-5 border-t-2  ">
+
+
+
+                            <div class="flex justify-between">
+
+                                <div class="flex gap-4 items-center pt-2 w-full ">
+
+                                       <img class="rounded-full border-4 border-pink-600 w-10 h-10 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                       <div class="flex flex-col">
+                                           <p class="font-semibold text-sm">mr.highthink</p>
+                                           <p class="font-normal text-xs">Orginal audio</p>
+                                       </div>                                                 
+                                </div>
+                                <div class="text-black flex items-center "><i class="ri-more-2-fill"></i></div>
+                            </div>
+                            <div class="relative top-3 h-[550px] w-[500px]">
+                                <video class="photo bg-black px-12 w-[500px] h-[550px]" autoplay  loop  muted type="video/mp4" src="https://videos.pexels.com/video-files/5532765/5532765-sd_506_960_25fps.mp4"></video>
+                    
+                            </div>
+                            <div class="flex justify-start text-2xl mt-4 font-normal gap-3" >
+                                <div><i id="heart" class="ri-heart-3-line"></i></div>
+                                <div><i id="telegram" class="ri-telegram-2-line"></i></div>
+                                <div><i id="chat" class="ri-chat-3-line"></i></div>
+                             </div>
+
+                            <div>
+                                  <div>
+                                      <p class="para">likes</p>
+                                      <p class="font-light text-sm text-gray-500">view all 7 comments</p>
+                                   
+                            
+                                  </div>
+                                    <div class="flex justify-between">
+                                        <div> <p class="font-light text-gray-500">Add a comment....</p></div>
+                                        <div class="text-sm text-gray-500 "><i class="ri-user-smile-line"></i></div>
+                                    </div>
+                            </div>
+                            <div  class="like-heart  absolute  top-80 left-56 flex items-center justify-center opacity-0 text-red-500 text-9xl pointer-events-none transform scale-0">
+                                ❤️
+                            </div>
+                        </div> -->
+
+
+
+                        
+                        <!-- <div class=" relative top-5 border-t-2  ">
+
+
+
+                            <div class="flex justify-between">
+
+                                <div class="flex gap-4 items-center pt-2 w-full ">
+
+                                       <img class="rounded-full border-4 border-pink-600 w-10 h-10 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                       <div class="flex flex-col">
+                                           <p class="font-semibold text-sm">mr.highthink</p>
+                                           <p class="font-normal text-xs">Orginal audio</p>
+                                       </div>                                                 
+                                </div>
+                                <div class="text-black flex items-center "><i class="ri-more-2-fill"></i></div>
+                            </div>
+                            <div class="relative top-3 h-[550px] w-[500px]">
+                                <video class="photo bg-black px-12 w-[500px] h-[550px]" autoplay  loop  muted type="video/mp4" src="https://videos.pexels.com/video-files/6127664/6127664-sd_506_960_25fps.mp4"></video>
+                    
+                            </div>
+                            <div class="flex justify-start text-2xl mt-4 font-normal gap-3" >
+                                <div><i id="heart" class="ri-heart-3-line"></i></div>
+                                <div><i id="telegram" class="ri-telegram-2-line"></i></div>
+                                <div><i id="chat" class="ri-chat-3-line"></i></div>
+                             </div>
+
+                            <div>
+                                  <div>
+                                      <p class="para">likes</p>
+                                      <p class="font-light text-sm text-gray-500">view all 7 comments</p>
+                                   
+                            
+                                  </div>
+                                    <div class="flex justify-between">
+                                        <div> <p class="font-light text-gray-500">Add a comment....</p></div>
+                                        <div class="text-sm text-gray-500 "><i class="ri-user-smile-line"></i></div>
+                                    </div>
+                            </div>
+                            <div  class="like-heart  absolute  top-80 left-56 flex items-center justify-center opacity-0 text-red-500 text-9xl pointer-events-none transform scale-0">
+                                ❤️
+                            </div>
+                        </div> -->
+
+
+
+                        <!-- <div class="photo relative top-5 border-t-2  ">
+
+
+
+                                <div class="flex justify-between">
+    
+                                    <div class="flex gap-4 items-center pt-2 w-full ">
+    
+                                           <img class="rounded-full border-4 border-pink-600 w-10 h-10 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s">
+                                           <div class="flex flex-col">
+                                               <p class="font-semibold text-sm">mr.highthink</p>
+                                               <p class="font-normal text-xs">Orginal audio</p>
+                                           </div> 
+                                                                                          
+                                    </div>
+                                    <div class="text-black flex items-center "><i class="ri-more-2-fill"></i></div>
+                                </div>
+                                <div class="relative top-3 h-[550px] w-[500px]">
+                                    <video class="bg-black px-12 w-[500px] h-[550px]" autoplay loop muted type="video/mp4" src="https://videos.pexels.com/video-files/8666755/8666755-sd_506_960_25fps.mp4"></video>
+                                </div>
+                                <div class="flex justify-start text-2xl mt-4 font-normal gap-3" >
+                                    <div><i id="heart" class="ri-heart-3-line"></i></div>
+                                    <div><i id="telegram" class="ri-telegram-2-line"></i></div>
+                                    <div><i id="chat" class="ri-chat-3-line"></i></div>
+                                 </div>
+    
+                                <div>
+                                      <div>
+                                          <p class="para">likes</p>
+                                          <p class="font-light text-sm text-gray-500">view all 7 comments</p>
+                                       
+                                
+                                      </div>
+                                        <div class="flex justify-between">
+                                            <div> <p class="font-light text-gray-500">Add a comment....</p></div>
+                                            <div class="text-sm text-gray-500 "><i class="ri-user-smile-line"></i></div>
+                                        </div>
+                                </div>
+
+                                <div  class="like-heart  absolute  top-80 left-56 flex items-center justify-center opacity-0 text-red-500 text-9xl pointer-events-none transform scale-0">
+                                    ❤️
+                                </div>
+                                
+                                
+                        </div> -->
+
+
+                        <!-- <div class="photo relative top-5 border-t-2  ">
+
+
+
+                                <div class="flex justify-between">
+    
+                                    <div class="flex gap-4 items-center pt-2 w-full ">
+    
+                                           <img class="rounded-full border-4 border-pink-600 w-10 h-10 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                           <div class="flex flex-col">
+                                               <p class="font-semibold text-sm">mr.highthink</p>
+                                               <p class="font-normal text-xs">Orginal audio</p>
+                                           </div>                                                 
+                                    </div>
+                                    <div class="text-black flex items-center "><i class="ri-more-2-fill"></i></div>
+                                </div>
+                                <div class="relative top-3 h-[550px] w-[500px]">
+
+                                    <video class="photo bg-black px-12 w-[500px] h-[550px]" autoplay  loop  muted type="video/mp4" src="https://videos.pexels.com/video-files/8852426/8852426-sd_360_640_30fps.mp4"></video>
+                            
+                                </div>
+                    
+                                <div class="flex justify-start text-2xl mt-4 font-normal gap-3" >
+                                    <div><i id="heart" class="ri-heart-3-line"></i></div>
+                                    <div><i id="telegram" class="ri-telegram-2-line"></i></div>
+                                    <div><i id="chat" class="ri-chat-3-line"></i></div>
+                                 </div>
+    
+                                <div>
+                                      <div>
+                                          <p class="para">likes</p>
+                                          <p class="font-light text-sm text-gray-500">view all 7 comments</p>
+                                       
+                                
+                                      </div>
+                                        <div class="flex justify-between">
+                                            <div> <p class="font-light text-gray-500">Add a comment....</p></div>
+                                            <div class="text-sm text-gray-500 "><i class="ri-user-smile-line"></i></div>
+                                        </div>
+                                </div>
+
+
+                                <div  class="like-heart  absolute  top-80 left-56 flex items-center justify-center opacity-0 text-red-500 text-9xl pointer-events-none transform scale-0">
+                                    ❤️
+                                </div>
+                        </div> -->
+                        </div>
+
+                                    
+                                    
+
+                              
+
+                      
+                                   
+                
+            
+        
+    
+
+
+
+
+
+
+
+
+
+    
+        
+    
+
+          
+
+
+                     </div>
+
+                </div>
+                <div class="mt-4 ml-36  pr-20 ">
+                    <div class="flex  gap-2">
+         
+                        <div class="flex gap-4 items-center pt-2 w-full ">
+     
+                            <img class="rounded-full border-4 border-pink-600 w-10 h-10 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                            <div class="flex flex-col">
+                                <p class="font-semibold text-sm">mr.highthink</p>
+                                <p class="font-normal text-xs">Orginal audio</p>
+                            </div>                                                 
+                         </div>
+                     <div class="text-blue-500 flex items-center hover:text-black  "><button>switch</button></div>
+                 </div>
+     
+                 
+     
+     
+                 <div class=" profile relative top-5">
+     
+     
+                     <div class="flex justify-between">
+                         <p class="font-semibold text-xs">Suggestions for You</p>
+     
+                         <p class="text-blue-600 font-semibold text-xs">See all</p>
+     
+                     </div>
+     
+                     <!-- <div class="flex  gap-2 mt-3">
+         
+                         <div class="flex gap-4 items-center pt-2 w-full ">
+         
+                                <img class="rounded-full border-4 border-pink-600 w-10 h-10 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                <div class="flex flex-col">
+                                    <p class="font-semibold text-sm">ranbir_kapoor</p>
+                                    <p class="font-normal text-xs">popular</p>
+                                </div>                                                 
+                         </div>
+                         <div class="text-blue-500 flex items-center hover:text-black  "><button>switch</button></div>
+                     </div>
+     
+                     <div class="flex gap-2 mt-3">
+         
+                         <div class="flex gap-4 items-center pt-2 w-full ">
+         
+                                <img class="rounded-full border-4 border-pink-600 w-10 h-10 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                <div class="flex flex-col">
+                                    <p class="font-semibold text-sm">deepika_padukene</p>
+                                    <p class="font-normal text-xs">popular</p>
+                                </div>                                                 
+                         </div>
+                         <div class="text-blue-500 flex items-center hover:text-black  "><button>Follow</button></div>
+                     </div>
+     
+                     <div class="flex  gap-2 mt-3">
+         
+                         <div class="flex gap-4 items-center pt-2 w-full ">
+         
+                                <img class="rounded-full border-4  border-pink-600   w-10 h-10 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                <div class="flex flex-col">
+                                    <p class="font-semibold text-sm">suhel_ashik</p>
+                                    <p class="font-normal text-xs">popular</p>
+                                </div>                                                 
+                         </div>
+                         <div class="text-blue-500 flex items-center hover:text-black  "><button>Follow</button></div>
+                     </div>
+     
+                     <div class="flex  gap-2 mt-3">
+         
+                         <div class="flex gap-4 items-center pt-2 w-full ">
+         
+                                <img class="rounded-full border-4 border-pink-600 w-10 h-10 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                <div class="flex flex-col">
+                                    <p class="font-semibold text-sm">disha_patani</p>
+                                    <p class="font-normal text-xs">popular</p>
+                                </div>                                                 
+                         </div>
+                         <div class="text-blue-500 flex items-center hover:text-black  "><button>Follow</button></div>
+                     </div>
+     
+                     <div class="flex  gap-2 mt-3">
+         
+                         <div class="flex gap-4 items-center pt-2 w-full ">
+         
+                                <img class="rounded-full border-4 border-pink-600 w-10 h-10 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                <div class="flex flex-col">
+                                    <p class="font-semibold text-sm">sharukh_khan</p>
+                                    <p class="font-normal text-xs">popular</p>
+                                </div>                                                 
+                         </div>
+                         <div class="text-blue-500 flex items-center hover:text-black  "><button>follow</button></div>
+                     </div>
+     
+                     <div class="flex  gap-2 mt-3">
+         
+                         <div class="flex gap-4 items-center pt-2 w-full ">
+         
+                                <img class="rounded-full border-4 border-pink-600 w-10 h-10 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                <div class="flex flex-col">
+                                    <p class="font-semibold text-sm">mr_suhaana</p>
+                                    <p class="font-normal text-xs">popular</p>
+                                </div>                                                 
+                         </div>
+                         <div class="text-blue-500 flex items-center hover:text-black  "><button>switch</button></div>
+                     </div>
+     
+                     <div class="flex  gap-2 mt-3">
+         
+                         <div class="flex gap-4 items-center pt-2 w-full ">
+         
+                                <img class="rounded-full border-4  border-pink-600   w-10 h-10 p-0.5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdMQyAL3vOeJL5L-Re3o0_Qpq-yO7MlbfuDA&s" alt="">
+                                <div class="flex flex-col">
+                                    <p class="font-semibold text-sm">alia_bhatt</p>
+                                    <p class="font-normal text-xs">popular</p>
+                                </div>                                                 
+                         </div>
+                         <div class="text-blue-500 flex items-center hover:text-black  "><button>Follow</button></div>
+                     </div> -->
+                 </div>
+     
+                     
+     
+     
+     
+                     
+     
+     
+     
+               </div>
+                
+                
+        </div>
+     </div>
+</div>
+    
+</body>
+</html>
+
+
+     <script>
+        const Container = document.getElementById('card-container');
+        const leftBtn = document.querySelector('.left-btn');
+        const rightBtn = document.querySelector('.right-btn');
+
+    
+        const scrollwidth = 200;
+
+        rightBtn.addEventListener('click', () => {
+            Container.scrollBy({
+                left: scrollwidth,
+                behavior: 'smooth'
+            });
+        });
+
+        leftBtn.addEventListener('click', () => {
+            Container.scrollBy({
+                left: -scrollwidth,
+                behavior: 'smooth'
+            });
+        });
+
+
+        const status = document.querySelector('.status');
+        const left = document.querySelector('.left-side');
+        const right = document.querySelector('.right-side');
+
+    
+        const scrolllength = 100;
+
+        right.addEventListener('click', () => {
+            status.scrollBy({
+                left: scrolllength,
+                behavior: 'smooth'
+            });
+        });
+
+        left.addEventListener('click', () => {
+            status.scrollBy({
+                left: -scrolllength,
+                behavior: 'smooth'
+            });
+        });
+
+
+
+
+function animation(){
+let photos = document.querySelectorAll('.photo');
+let paras = document.querySelectorAll('.para');
+let likehearts = document.querySelectorAll('.like-heart');
+let hearts = document.querySelectorAll('#heart');
+
+let likes = 0;
+
+
+photos.forEach((photo, index) => {
+    photo.addEventListener("dblclick", () => {
+        
+        paras[index].innerText = `${1} like`;
+
+     
+        hearts[index].className = 'ri-heart-3-fill';
+
+      
+        likehearts[index].style.display = "block"; 
+        likehearts[index].classList.add('animate-like-heart'); 
+        hearts[index].style.color="red"
+
+        
+        setTimeout(() => {
+            likehearts[index].classList.remove('animate-like-heart');
+            likehearts[index].style.display = "none"; 
+        }, 1000);  
+    });
+
+
+    
+});
+hearts.forEach((heart, index) => {
+    heart.addEventListener("click", () => {
+       
+               
+      
+
+
+        
+
+        if (heart.className === 'ri-heart-3-fill') {
+            heart.className = 'ri-heart-line';
+            paras[index].innerText= "0 likes" ; 
+            hearts[index].style.color="black";
+        } else  {
+            heart.className ='ri-heart-3-fill'
+            paras[index].innerText="1 like"
+            hearts[index].style.color="red"
+        }
+    });
+});
+}
+
+let storycontainer=document.querySelector('.story-container');
+
+
+function gen_stories(data){
+
+
+
+   data.forEach(image=>{
+   let div1=document.createElement('div');
+   div1.classList.add('flex','flex-col', 'items-center');
+
+   let img=document.createElement('img');
+   img.classList.add('rounded-full', 'border-2', 'p-1', 'm-1', 'bg-gradient-to-r', 'from-pink-500', 'to-yellow-500',  'w-16', 'h-16')
+   img.src=image.url;
+
+   let p=document.createElement('p');
+   p.textContent=image.username;
+
+   div1.appendChild(img);
+   div1.appendChild(p);
+
+   storycontainer.appendChild(div1)
+
+
+
+   storycontainer.classList.add( 'flex', 'space-x-4', 'overflow-x-auto', 'scrollbar-hide','w-[620px]', 'overflow-hidden' ,'scroller')
+
+
+    })
+
+}
+
+const jsonData = {
+            "data": [
+                { "id": 1, "url": "https://tse1.mm.bing.net/th?id=OIP.gBXUSmk9zkGImkX0-lEr6gHaHa&pid=Api&P=0&h=180", "username": "suhaxsn_a","videoUrl": "https://videos.pexels.com/video-files/5532765/5532765-sd_506_960_25fps.mp4" },
+                { "id": 2, "url": "https://tse1.mm.bing.net/th?id=OIP.bIRT_wUb-0qp3ZOUXGYqkgHaJI&pid=Api&P=0&h=180", "username": "ar_u9cjun","videoUrl":"https://videos.pexels.com/video-files/7220850/7220850-sd_506_960_25fps.mp4" },
+                { "id": 3, "url": "https://tse4.mm.bing.net/th?id=OIP.pm_qZf_7y99KQoYl7ur_ywHaHa&pid=Api&P=0&h=180", "username": "n_uebcbha" ,"videoUrl":"https://videos.pexels.com/video-files/6567878/6567878-sd_506_960_25fps.mp4"},
+                { "id": 4, "url": "https://tse2.mm.bing.net/th?id=OIP.QsPV56iITOdUhkbXhHvbjwAAAA&pid=Api&P=0&h=180", "username": "kp_ahrcfan" ,"videoUrl":"https://videos.pexels.com/video-files/6567878/6567878-sd_506_960_25fps.mp4"},
+                { "id": 5, "url": "https://tse2.mm.bing.net/th?id=OIP.MB8mV90cH_AJAsJ-nxdlKgHaHa&pid=Api&P=0&h=180", "username": "njghf_ischa","videoUrl": "https://videos.pexels.com/video-files/6567878/6567878-sd_506_960_25fps.mp4"},
+                { "id": 6, "url": "https://tse1.mm.bing.net/th?id=OIP.eztJtMjGTZEnEMB59-jX7QHaGa&pid=Api&P=0&h=180", "username": "r_ohdefdit" ,"videoUrl":"https://videos.pexels.com/video-files/6567878/6567878-sd_506_960_25fps.mp4"},
+                { "id": 7, "url": "https://tse1.mm.bing.net/th?id=OIP.V589YA7DihXX0MWarpzMHgHaFj&pid=Api&P=0&h=180", "username": "anuyjadr_li","videoUrl": "https://videos.pexels.com/video-files/6567878/6567878-sd_506_960_25fps.mp4"},
+                { "id": 8, "url": "https://tse4.mm.bing.net/th?id=OIF.MwPOmjqN%2f%2feq%2fGua4pXK2Q&pid=Api&P=0&h=180", "username": "p_riygfcaf","videoUrl": "https://videos.pexels.com/video-files/6567878/6567878-sd_506_960_25fps.mp4"},
+                { "id": 9, "url": "https://tse2.mm.bing.net/th?id=OIP.CIf589mlNPBbSY9mZqs5HwHaHa&pid=Api&P=0&h=180", "username": "ra_jaaigfsn" ,"videoUrl":"https://videos.pexels.com/video-files/6567878/6567878-sd_506_960_25fps.mp4"},
+                { "id": 10, "url": "https://tse3.mm.bing.net/th?id=OIP.PO87Op8EleuTLtiWy6roPQHaFR&pid=Api&P=0&h=180", "username": "taf_fdfrnya","videoUrl":"https://videos.pexels.com/video-files/6567878/6567878-sd_506_960_25fps.mp4" },
+                { "id": 11, "url": "https://tse4.mm.bing.net/th?id=OIP.39wBG2A-WGrnSFfJ5CXXIQHaGl&pid=Api&P=0&h=180", "username": "a_dfgarfgrti","videoUrl": "https://videos.pexels.com/video-files/6567878/6567878-sd_506_960_25fps.mp4"},
+                { "id": 12, "url": "https://tse1.mm.bing.net/th?id=OIP.iD83iD5uomJZVqaPcM1SlAHaHa&pid=Api&P=0&h=180", "username": "vihhjfdkas","videoUrl":"https://videos.pexels.com/video-files/6567878/6567878-sd_506_960_25fps.mp4" },
+                { "id": 13, "url": "https://tse2.mm.bing.net/th?id=OIP.eA86em1vN_4_Ns06jVKIJgHaHa&pid=Api&P=0&h=180", "username": "annbncita","videoUrl":"https://videos.pexels.com/video-files/6567878/6567878-sd_506_960_25fps.mp4" },
+                { "id": 14, "url": "https://tse3.mm.bing.net/th?id=OIP.WhDtB_ouO_PRx3CDNntnbgHaHR&pid=Api&P=0&h=180", "username": "sidgghdhi","videoUrl":"https://videos.pexels.com/video-files/6567878/6567878-sd_506_960_25fps.mp4" },
+                { "id": 15, "url": "https://tse4.mm.bing.net/th?id=OIP.zObM0X118L3OcQs2YZqKDgHaHa&pid=Api&P=0&h=180", "username": "rifghtya","videoUrl": "https://videos.pexels.com/video-files/6567878/6567878-sd_506_960_25fps.mp4"},
+            ]
+        }; 
+        gen_stories(jsonData.data);
+
+
+
+
+
+
+let container=document.getElementById('card-container');
+function making_cards(data){
+
+
+    data.forEach (image=>{
+
+    
+
+    let div2=document.createElement('div');
+    div2.classList.add('card', 'w-48', 'border-2', 'flex', 'flex-col', 'items-center', 'shrink-0');
+    let button=document.createElement('button');
+    button.classList.add('close-btn', 'relative' ,'left-20', 'cursor-pointer');
+    button.innerText='X';
+    let img=document.createElement('img');
+    img.src=image.url;
+    img.classList.add('rounded-full', 'w-16', 'h-16', 'p-0.5');
+    let div3=document.createElement('div');
+    div3.classList.add('flex', 'gap-1');
+    let p=document.createElement('p');
+    p.innerText="suhanashaaik";
+    let div4=document.createElement('div');
+    div4.classList.add('text-blue-500');
+    div3.appendChild(div4);
+    div3.appendChild(p);
+    let p1=document.createElement('p');
+    p1.classList.add('font-light', 'text-center', 'pb-10', 'px-6');
+    p1.innerText="Instagram recommended";
+    let div5=document.createElement('div')
+    div5.classList.add('w-full', 'border-t', 'border-gray-300', 'my-2');
+    let button1=document.createElement('button');
+    button1.classList.add('w-full', 'my-4', 'text-blue-600', 'hover:text-black');
+    button1.innerText="Follow"
+
+
+
+
+
+
+
+    div2.appendChild(button);
+    div2.appendChild(img);
+    div2.appendChild(div3);
+    div2.appendChild(p1);
+    div2.appendChild(div5);
+    div2.appendChild(button1);
+    
+
+    container.classList.add('flex', 'overflow-x-auto', 'scroller', 'gap-2', 'p-4');
+    container.appendChild(div2);
+    
+})
+
+
+
+}
+
+making_cards(jsonData.data);
+
+
+
+
+
+
+let videoContainer = document.querySelector('.video-container');
+
+function gen_videos(data) {
+    let innerHtmlContent = '';
+
+
+    data.forEach((videoData, index) => {
+        innerHtmlContent += `
+            <div class=" relative top-5 border-t-2">
+                <div class="flex justify-between">
+                    <div class="flex gap-4 items-center pt-2 w-full">
+                        <img class="rounded-full border-4 border-pink-600 w-10 h-10 p-0.5" 
+                             src="${videoData.url}" 
+                             alt="${videoData.username}">
+                        <div class="flex flex-col">
+                            <p class="font-semibold text-sm">${videoData.username}</p>
+                            <p class="font-normal text-xs">Original audio</p>
+                        </div> 
+                    </div>
+                    <div class="text-black flex items-center"><i class="ri-more-2-fill"></i></div>
+                </div>
+                <div class=" relative top-3 h-[550px] w-[500px]">
+                    <video class="photo bg-black px-12 w-[500px] h-[550px]" autoplay loop muted type="video/mp4" 
+                           src="${videoData.videoUrl}"></video>
+                </div>
+                        
+
+                            <div class="flex justify-between">
+
+                                <div class="flex justify-start text-2xl mt-4 font-normal gap-3">
+                                     <div><i id="heart" class="ri-heart-3-line hover:text-gray-500"></i></div>
+                                     <div><i id="telegram" class="ri-telegram-2-line hover:text-gray-500"></i></div>
+                                     <div><i class="chat ri-chat-3-line hover:text-gray-500"></i></div>
+                                </div>
+
+                                <i id="save-${videoData.videoUrl}" class="ri-bookmark-line hover:text-gray-500 cursor-pointer text-2xl relative right-14 top-4" onclick='toggleSave(${JSON.stringify(videoData)})'></i>
+
+                                
+                            </div>
+                <div>
+                    <div>
+                        <p class="para"> 0 likes</p>
+                        <p class="font-light text-sm text-gray-500">view all 7 comments</p>
+                    </div>
+                    <div class="flex justify-between">
+                        <div><p class="font-light text-gray-500">Add a comment....</p></div>
+                        <div class="text-sm text-gray-500 relative right-14"><i class="ri-user-smile-line"></i></div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+    
+    videoContainer.innerHTML = innerHtmlContent;
+
+
+    let photos = document.querySelectorAll('.photo');
+
+    photos.forEach(photo => {
+        let likeheart = document.createElement('div');
+        likeheart.classList.add('like-heart', 'absolute', 'top-1/2', 'left-1/2', 'flex', 'items-center', 'justify-center', 'opacity-0', 'text-red-500', 'text-9xl', 'pointer-events-none', 'transform', 'scale-0');
+        likeheart.innerText = "❤️";
+        photo. parentNode.appendChild(likeheart); 
+    });
+
+    animation()
+}
+
+gen_videos(jsonData.data);   
+
+
+let chats=document.querySelectorAll('.chat');
+let box = document.querySelector('.box'); 
+let modalvideo=document.getElementById('modalvideo');
+ chats.forEach((chat,index)=>{
+    
+ chat.addEventListener("click",()=>{
+
+     box.classList.remove('hidden');
+     document.body.classList.add('overflow-hidden');
+
+
+    // modalvideo.src=photos[index].src;
+    modalvideo.src = jsonData.data[index].videoUrl;
+    making_comments(jsonData.data[index]);
+ 
+
+
+   
+      })
+
+  
+  });
+
+  let profile=document.querySelector('.profile');
+
+
+
+  function making_profiles(data){
+
+       profilehtml=' '
+
+       data.forEach (el=>{
+        profilehtml+=
+        
+
+          `<div class="flex  gap-2 mt-3">
+         
+         <div class="flex gap-4 items-center pt-2 w-full ">
+
+                <img class="rounded-full border-4 border-pink-600 w-10 h-10 p-0.5" src=${el.url} alt="">
+                <div class="flex flex-col">
+                    <p class="font-semibold text-sm">${el.username}</p>
+                    <p class="font-normal text-xs">popular</p>
+                </div>                                                 
+         </div>
+         <div class="text-blue-500 flex items-center hover:text-black  "><button>switch</button></div>
+     </div>`});
+    
+     profile.insertAdjacentHTML('beforeend',profilehtml)
+    
+
+
+  
+    }
+    making_profiles(jsonData.data)
+
+
+
+   
+let suhaana = document.querySelector('.suhaana');
+
+
+    function making_comments(data) {
+        if (!data) return;
+       
+        let    suhaanahtml = `
+                <div class="flex justify-between">
+                    <div class="flex gap-4 items-center pt-2 w-full">
+                        <img class="rounded-full border-4 border-pink-600 w-10 h-10 p-0.5" 
+                             src="${data.url}"  
+                             alt="${data.username}"> 
+                        <div class="flex flex-col">
+                            <p class="font-semibold text-sm">${data.username}</p>
+                        </div> 
+                    </div>
+                    <div class="text-black flex items-center"><i class="ri-more-2-fill"></i></div>
+                </div>
+            `;
+       
+
+        
+        suhaana.innerHTML = suhaanahtml;
+    
+    }
+    const userData = {
+  "users": [
+    { "username": "suhana", "userurl": "https://tse1.mm.bing.net/th?id=OIP.gBXUSmk9zkGImkX0-lEr6gHaHa&pid=Api&P=0&h=180" },
+    { "username": "sumiya","userurl": "https://tse1.mm.bing.net/th?id=OIP.gBXUSmk9zkGImkX0-lEr6gHaHa&pid=Api&P=0&h=180" },
+    { "username": "arjun","userurl": "https://tse1.mm.bing.net/th?id=OIP.gBXUSmk9zkGImkX0-lEr6gHaHa&pid=Api&P=0&h=180" },
+    { "username": "neha","userurl": "https://tse1.mm.bing.net/th?id=OIP.gBXUSmk9zkGImkX0-lEr6gHaHa&pid=Api&P=0&h=180" },
+    { "username": "aman","userurl": "https://tse1.mm.bing.net/th?id=OIP.gBXUSmk9zkGImkX0-lEr6gHaHa&pid=Api&P=0&h=180" },
+    { "username": "sara","userurl": "https://tse1.mm.bing.net/th?id=OIP.gBXUSmk9zkGImkX0-lEr6gHaHa&pid=Api&P=0&h=180" },
+    { "username": "dev","userurl": "https://tse1.mm.bing.net/th?id=OIP.gBXUSmk9zkGImkX0-lEr6gHaHa&pid=Api&P=0&h=180" },
+    { "username": "priya","userurl": "https://tse1.mm.bing.net/th?id=OIP.gBXUSmk9zkGImkX0-lEr6gHaHa&pid=Api&P=0&h=180" },
+    { "username": "vikas","userurl": "https://tse1.mm.bing.net/th?id=OIP.gBXUSmk9zkGImkX0-lEr6gHaHa&pid=Api&P=0&h=180" },
+    { "username": "meera","userurl": "https://tse1.mm.bing.net/th?id=OIP.gBXUSmk9zkGImkX0-lEr6gHaHa&pid=Api&P=0&h=180" }
+  ]
+};
+
+
+let messages=document.querySelector('.messages');
+let post=document.querySelector('#postComment');
+let input=document.querySelector('.comment-input');
+let currentindex=0;
+
+post.addEventListener( 'click',()=>{
+
+let comment=input.value.trim();
+if (comment){
+
+ let   username=userData.users[currentindex].username;
+let   userurl=userData.users[currentindex].userurl;
+
+ let   comments=JSON.parse(localStorage.getItem('comments'))||[];
+
+    comments.push({username:username , comment:comment,userurl: userurl })
+
+    localStorage.setItem('comments',JSON.stringify(comments))
+
+    input.value='';
+
+    currentindex=(currentindex + 1) % userData.users.length;
+    display_comments();
+
+}
+
+
+})
+
+
+function display_comments(){
+
+    messages.innerHTML='';
+
+    let comments=JSON.parse(localStorage.getItem('comments'))||[];
+
+    comments.forEach (({username,comment,userurl},index)=>{
+
+    messages.innerHTML+=`
+    <div class="flex items-start space-x-3 p-2 border-b">
+  <div>
+    <img class="rounded-full border-2 border-pink-600 w-10 h-10" src="${userurl}" alt="${username}">
+  </div>
+  <div class="flex-1">
+    <div class="text-sm">
+      <span class="font-semibold text-gray-800">${username}</span>
+      <span class="text-gray-700">${comment}</span>
+    </div>
+  </div>
+  <div>
+    <button class="remove-btn text-gray-500 text-xs" data-index="${index}">X</button>
+  </div>
+</div>
+
+    `;
+
+
+
+
+})
+    
+    document.querySelectorAll('.remove-btn').forEach (button=>{
+    button.addEventListener('click',(e)=>{
+       let index=e.target.getAttribute('data-index');
+
+        remove_comment(index);
+       
+    })
+ });
+}
+
+
+
+function remove_comment(index){
+
+   let comments= JSON.parse( localStorage.getItem('comments'))||[];
+
+   comments.splice(index,1);
+
+   localStorage.setItem('comments',JSON.stringify(comments));
+
+   display_comments()
+}
+
+    
+
+   
+
+  
+  
+
+
+let savedVideos = JSON.parse(localStorage.getItem('savedVideos')) || [];
+const savedVideosModal = document.getElementById('savedVideosModal');
+const savedVideosContent = document.getElementById('savedVideosContent');
+const closeModalBtn = document.getElementById('closeModalBtn');
+
+
+function toggleSave(videoData) {
+    const index = savedVideos.findIndex(video => video.videoUrl === videoData.videoUrl);
+    const saveIcon = document.getElementById(`save-${videoData.videoUrl}`);
+    
+    if (index > -1) {
+        
+        savedVideos.splice(index, 1);
+        saveIcon.classList.remove('ri-bookmark-fill');
+        saveIcon.classList.add('ri-bookmark-line');
+    } else {
+     
+        savedVideos.push(videoData);
+        saveIcon.classList.remove('ri-bookmark-line');
+        saveIcon.classList.add('ri-bookmark-fill');
+    }
+
+    localStorage.setItem('savedVideos', JSON.stringify(savedVideos));
+}
+
+
+function showSavedVideos() {
+    const savedData = JSON.parse(localStorage.getItem('savedVideos')) || [];
+    let modalContent = '';
+
+    if (savedData.length === 0) {
+        modalContent = '<p>No saved videos</p>';
+    } else {
+        savedData.forEach(videoData => {
+            modalContent += `
+                <div class="flex gap-4 items-center pt-2 w-full">
+                    <img class="rounded-full w-10 h-10" src="${videoData.url}" alt="${videoData.username}">
+                    <div class="flex flex-col">
+                        <p class="font-semibold text-sm">${videoData.username}</p>
+                        <video class="w-full h-[200px]" controls src="${videoData.videoUrl}"></video>
+                    </div>
+                </div>`;
+        });
+    }
+
+    savedVideosContent.innerHTML = modalContent;
+    savedVideosModal.classList.remove('hidden');
+}
+
+
+closeModalBtn.addEventListener('click', () => {
+    savedVideosModal.classList.add('hidden');
+});
+
+
+
+
+
+
+
+
+
+const modalBox = document.getElementById('modalBox');
+const closeModal = document.getElementById('closeModal');
+
+// Close the modal when the close button or overlay is clicked
+closeModal.addEventListener('click', () => {
+  modalBox.classList.add('hidden');
+});
+
+modalBox.addEventListener('click', (event) => {
+  if (event.target === modalBox) {
+    modalBox.classList.add('hidden');
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+ 
+    </script>
+    
+     
+
+
+
+    
+    
+</body>
+</html>
+ 
